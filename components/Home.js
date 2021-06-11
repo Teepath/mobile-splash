@@ -25,7 +25,7 @@ function Home(props) {
   const { navigation, data, arrayIds } = props;
   const renderItem = ({ item }) => (
     // console.log(item)
-      item !== null?(
+      item?(
       <Item title={item} questions={data[item].questions} navigation={navigation} key={ item}/>
       ): <Text> No Deck added yet! </Text>
     );

@@ -23,15 +23,15 @@ export const saveDeckTitle = async (title) => {
 
 export const addCardToDeck = async (title, card) => {
     let deck = await AsyncStorage.getItem(deckGame)
-    let response =await JSON.parse(deck);
-  
-    response[title] = {
-        ...response[title],
-        questions:[...response[title].questions, card]
+    if (deck !== null) {
+        let response = JSON.parse(deck);
+        response[title] = {
+            ...response[title],
+            questions:[...response[title].questions, card]
+        }
+        await AsyncStorage.mergeItem(deckGame, JSON.stringify(response))
     }
- console.log("response" ,JSON.stringify(response))
-
-        AsyncStorage.mergeItem(deckGame, JSON.stringify(response))
+       
 }
 
 export const getDeck = async (id) => {
