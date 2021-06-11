@@ -1,6 +1,10 @@
-import React, {useState} from 'react'
-import { SafeAreaView, View, FlatList, StyleSheet, Text, Button,  StatusBar, TouchableOpacity } from 'react-native';
-import { purple, red, white, green } from "../utils/colors"
+import React, {useState, useEffect} from 'react'
+import { SafeAreaView, View,  StyleSheet, Text, Button,  StatusBar, TouchableOpacity } from 'react-native';
+import { red, white, green } from "../utils/colors"
+import {
+    clearLocalNotification,
+    setLocalNotification
+  } from "../utils/helpers";
 
 import { connect } from 'react-redux';
 
@@ -15,6 +19,13 @@ function QuizCard(props) {
         console.log("flip")
         setAnswer(!is_answer)
     }
+
+    useEffect(() => {
+        if (total <= 1) {
+            
+        clearLocalNotification().then(setLocalNotification)
+        }
+    }, [])
 
     const handleCorrect = () => {
         if (index == deck.length - 1) {
@@ -48,7 +59,7 @@ function QuizCard(props) {
         
     }
 
-    handleRetake = () => {
+    const handleRetake = () => {
         setIndex(0)
         setDone(false)
         setTotal(1)

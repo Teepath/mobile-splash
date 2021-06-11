@@ -4,10 +4,7 @@ import { red, white, } from "../utils/colors"
 import { addCardToDeck } from "../utils/_API_";
 import { connect } from 'react-redux';
 import { addCard } from "../actions/index";
-// import {
-//     clearLocalNotification,
-//     setLocalNotification
-//   } from "../utils/helpers";
+
 
 function AddQuestion(props) {
     const [question, setQuestion] = useState("");
@@ -28,7 +25,6 @@ function AddQuestion(props) {
         }
         setQuestion(" ")
         setResponse("")
-        // clearLocalNotification().then(setLocalNotification)
     }
 console.log(question, response, deckId)
     return (

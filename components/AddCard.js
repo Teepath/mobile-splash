@@ -1,9 +1,8 @@
-import React,{useEffect, useState} from 'react'
-import { SafeAreaView, View, FlatList, StyleSheet, Text, Button, StatusBar, TouchableOpacity } from 'react-native';
+import React,{useState} from 'react'
+import { SafeAreaView, View, StyleSheet, Text, Button, StatusBar, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { addCard } from '../actions';
-import { purple, red, white } from "../utils/colors";
-import { getDeck, removeDeck } from '../utils/_API_';
+import { white } from "../utils/colors";
+import {  removeDeck } from '../utils/_API_';
 
 
 function AddCard(props) {
@@ -30,10 +29,7 @@ function AddCard(props) {
                 <TouchableOpacity style={styles.quizCard} onPress={()=>navigation.navigate("Quiz", {deckId: deckId})}>
                     <Text style={styles.textQuiz}> Start Quiz</Text>
                 </TouchableOpacity>
-                {/* <TouchableOpacity style={{ margin: 20,
-        padding: 20}} onPress={()=> handleDelete()} >
-                    <Text style={{color: red, fontSize: 25}}> Delete</Text>
-                </TouchableOpacity> */}
+            
           </View>
         </SafeAreaView>
     )
