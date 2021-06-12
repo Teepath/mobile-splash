@@ -33,7 +33,7 @@ function QuizCard(props) {
             setDone(true)
             alert(" No more quiz to display")
         }else {
-            if (deck[index].answer === "Yes" ) {
+            if (deck && deck[index].answer === "Yes" ) {
                 setScore(score + 1)   
               }              
               setIndex(index + 1); 
@@ -50,7 +50,7 @@ function QuizCard(props) {
               
             } else {      
             
-                if (deck.answer === "No" ) {
+                if (deck && deck[index].answer === "No" ) {
                     setScore(score + 1);
               
                 }
@@ -66,41 +66,48 @@ function QuizCard(props) {
         setScore(0)
     }
 
-  
-    return (
-        <SafeAreaView style={styles.container}>
+    if (deck) {
+        return (
+            <SafeAreaView style={styles.container}>
     
-            <Text style={styles.text}> { `${index +1}/${deck.length}`}</Text>
-                                <View style={styles.question}>
-                                <Text style={styles.text}>{ !is_answer && index < deck.length-1? deck[index].question: deck[index].answer} </Text>
-                                <TouchableOpacity onPress={() => handleFlip()}>
-                                    <Text style={{ color: red, fontSize: 25 }} >{ !is_answer?'Answer': 'Question'} </Text>
-                                    </TouchableOpacity>
-                <Text style={{fontSize:25, color:"black"}}>{ total ===1?null: total}</Text>
-                                    </View>
-            {!done ?
-                <View style={styles.btnWrapper}>
-                    <TouchableOpacity style={styles.correct} onPress={() => handleCorrect()}>
-                        <Text style={styles.textBtn}> Correct </Text>
+                <Text style={styles.text}> {`${index + 1}/${deck.length}`}</Text>
+                <View style={styles.question}>
+                    <Text style={styles.text}>{!is_answer && index < deck.length - 1 ? deck[index].question : deck[index].answer} </Text>
+                    <TouchableOpacity onPress={() => handleFlip()}>
+                        <Text style={{ color: red, fontSize: 25 }} >{!is_answer ? 'Answer' : 'Question'} </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.cardBtn} onPress={() => handleIncorect()}>
-                        <Text style={styles.textBtn}> Incorrect</Text>
-                    </TouchableOpacity>
-                 
+                    <Text style={{ fontSize: 25, color: "black" }}>{total === 1 ? null : total}</Text>
                 </View>
-                :
-                <View style={styles.btnWrapper}>
-                <TouchableOpacity style={styles.correct} onPress={() => handleRetake()}>
-                    <Text style={styles.textBtn}> Retake Quiz </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.cardBtn} onPress={() => goBack()}>
-                    <Text style={styles.textBtn}> Go back to Deck</Text>
-                </TouchableOpacity>
+                {!done ?
+                    <View style={styles.btnWrapper}>
+                        <TouchableOpacity style={styles.correct} onPress={() => handleCorrect()}>
+                            <Text style={styles.textBtn}> Correct </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cardBtn} onPress={() => handleIncorect()}>
+                            <Text style={styles.textBtn}> Incorrect</Text>
+                        </TouchableOpacity>
+                 
+                    </View>
+                    :
+                    <View style={styles.btnWrapper}>
+                        <TouchableOpacity style={styles.correct} onPress={() => handleRetake()}>
+                            <Text style={styles.textBtn}> Retake Quiz </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cardBtn} onPress={() => goBack()}>
+                            <Text style={styles.textBtn}> Go back to Deck</Text>
+                        </TouchableOpacity>
              
+                    </View>
+                }
+            </SafeAreaView>
+        )
+    } else {
+        return (
+            <View style={{flex:1, justifyContent:"cwenter", alignItems:"center"}}>
+                <Text> No quiz submited yet</Text>
             </View>
-            }
-        </SafeAreaView>
-    )
+        )
+    }
 }
 
 const styles = StyleSheet.create({
@@ -164,7 +171,7 @@ function mapStateToProps(state, {route, navigation}) {
     console.log('question', state[deckId].questions)
     return ({
             deckId,
-        deck: state[deckId].questions,
+        deck: state[deckId].questions? state[deckId].questions: null
         }
     )
 }

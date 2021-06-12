@@ -57,7 +57,7 @@ function Home(props) {
     
   )
   } else {
-    <Text style={{flex:1, justifyContent:"center", alignItems:"center"}}> No Deck added Yet</Text>
+   return <View style={{flex:1, justifyContent:"center", alignItems:"center"}}> <Text> No Deck added Yet </Text></View>
  }
    
 }

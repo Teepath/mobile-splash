@@ -9,11 +9,17 @@ function AddCard(props) {
     const[item, setDataItem] = useState({})
   const { deck, deckId, navigation, goBack} = props
    
-    const handleDelete = () => {
-        removeDeck(deckId).then(() => {
-            goBack()
-        })
+    // const handleDelete = () => {
+    //     removeDeck(deckId).then(() => {
+    //         goBack()
+    //     })
      
+    // }
+
+    const handleQuiz = () => {
+        if (deck.questions.length >= 1) {
+            navigation.navigate("Quiz", { deckId: deckId })
+       }
     }
     return (
         <SafeAreaView style={styles.container}>
@@ -26,9 +32,12 @@ function AddCard(props) {
                 <TouchableOpacity style={styles.cardBtn} onPress={()=>navigation.navigate('Question', {deckId: deckId})}>
                     <Text style={styles.text}> Add Card</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.quizCard} onPress={()=>navigation.navigate("Quiz", {deckId: deckId})}>
-                    <Text style={styles.textQuiz}> Start Quiz</Text>
-                </TouchableOpacity>
+                
+                    <TouchableOpacity style={styles.quizCard} onPress={() => handleQuiz()}>
+                        <Text style={styles.textQuiz}> Start Quiz</Text>
+                    </TouchableOpacity>
+                  
+                
             
           </View>
         </SafeAreaView>
