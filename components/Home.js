@@ -43,23 +43,19 @@ function Home(props) {
        
       }, [])
 
-  if (ready) {
+ 
     return ( 
-      <FlatList
-        data={arrayIds}
-        renderItem={renderItem}
-        keyExtractor={item => item}
-        contentContainerStyle={{
-          flexGrow: 1,
-        }}
-       
-      />
-    
-  )
-  } else {
-   return <View style={{flex:1, justifyContent:"center", alignItems:"center"}}> <Text> No Deck added Yet </Text></View>
- }
-   
+        <FlatList
+          data={arrayIds}
+          renderItem={renderItem}
+          keyExtractor={item => item}
+          contentContainerStyle={{
+            flexGrow: 1,
+          }}
+         
+        />
+      
+    )
 }
 
 
