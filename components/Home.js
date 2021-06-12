@@ -21,13 +21,13 @@ const Item = ({ title, questions, navigation }) => (
 );
   
 function Home(props) {
-
+  const [ready, setReady] = useState(false)
   const { navigation, data, arrayIds } = props;
   const renderItem = ({ item }) => (
     // console.log(item)
-      item?(
+      item && (
       <Item title={item} questions={data[item].questions} navigation={navigation} key={ item}/>
-      ): <Text> No Deck added yet! </Text>
+      )
     );
   
   useEffect(() => {
@@ -36,26 +36,30 @@ function Home(props) {
           dispatch(receiveDecks(result))
         ).then(({ decks }) => {
           if (!decks) {
+            setReady(true)
            navigation.navigate('Add Decks')
          }
        })
        
       }, [])
 
- 
-    return (
-            
-        <FlatList
-          data={arrayIds}
-          renderItem={renderItem}
-          keyExtractor={item => item}
-          contentContainerStyle={{
-            flexGrow: 1,
-          }}
-         
-        />
-      
-    )
+  if (ready) {
+    return ( 
+      <FlatList
+        data={arrayIds}
+        renderItem={renderItem}
+        keyExtractor={item => item}
+        contentContainerStyle={{
+          flexGrow: 1,
+        }}
+       
+      />
+    
+  )
+  } else {
+    <Text style={{flex:1, justifyContent:"center", alignItems:"center"}}> No Deck added Yet</Text>
+ }
+   
 }
 
 

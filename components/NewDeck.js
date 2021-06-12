@@ -37,8 +37,9 @@ function NewDeck(props) {
                    onChangeText={ handleChange}
                     />
                    </KeyboardAvoidingView>
-                      <TouchableOpacity style={styles.cardBtn} >
-                   <Button title="Submit" style={{color:white, fontSize:32}} onPress={()=> handleSubmit()}/> 
+                      <TouchableOpacity style={styles.cardBtn}onPress={()=> handleSubmit()} >
+                {/* <Button title="Submit" style={{color:white, fontSize:32}} />  */}
+                <Text style={{color:white, fontSize:32}}> Submit</Text>
                     </TouchableOpacity>
                    
                   
