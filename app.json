@@ -8,6 +8,10 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+ 
+    "infoPlist": {
+      "NSRemindersUsageDescription": "This app uses the reminder to notify you about the quiz."
+    },
     "plugins": [
       [
         "expo-notifications",

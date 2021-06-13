@@ -1,11 +1,10 @@
 import React,{useEffect, useState} from 'react'
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, TouchableOpacity } from 'react-native';
-import { purple, red, white } from "../utils/colors"
-// import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, TouchableOpacity, Animated } from 'react-native';
+import {red, white } from "../utils/colors"
+
 import { getDecks } from "../utils/_API_";
 import { connect } from 'react-redux';
 import { receiveDecks } from "../actions/index";
-
 
 const Separator = () => (
     <View style={styles.separator} />
@@ -24,7 +23,7 @@ function Home(props) {
   const [ready, setReady] = useState(false)
   const { navigation, data, arrayIds } = props;
   const renderItem = ({ item }) => (
-    // console.log(item)
+
       item && (
       <Item title={item} questions={data[item].questions} navigation={navigation} key={ item}/>
       )

@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react'
-import { SafeAreaView, View,  StyleSheet, Text, Button,  StatusBar, TouchableOpacity } from 'react-native';
+import { SafeAreaView, View,  StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
 import { red, white, green } from "../utils/colors"
 import {
     clearLocalNotification,
-    setLocalNotification
+    setLocalNotification,
+    // alertIfRemoteNotificationsDisabledAsync
   } from "../utils/helpers";
 
 import { connect } from 'react-redux';
@@ -20,22 +21,26 @@ function QuizCard(props) {
         setAnswer(!is_answer)
     }
 
+
     useEffect(() => {
         if (total <= 1) {
-            
-        clearLocalNotification().then(setLocalNotification)
+          clearLocalNotification().then(setLocalNotification)
         }
+    
     }, [])
+
 
     const handleCorrect = () => {
         if (index == deck.length - 1) {
             setTotal(Math.floor(score / deck.length * 100) + "%")
             setDone(true)
-            alert(" No more quiz to display")
+         
+            alert(" No more quiz to display");
+          
         }else {
-            if (deck && deck[index].answer === "Yes" ) {
+          
                 setScore(score + 1)   
-              }              
+                        
               setIndex(index + 1); 
             }      
     }
@@ -44,18 +49,17 @@ function QuizCard(props) {
 
     const handleIncorect = () => {
         if (index === deck.length-1) {
-            setTotal(score / deck.length * 100 + "%")
+            setTotal(Math.floor(score / deck.length * 100) + "%")
+            clearLocalNotification().then(setLocalNotification)
             setDone(true)
                 alert(" No more quiz to display")
               
             } else {      
-            
-                if (deck && deck[index].answer === "No" ) {
-                    setScore(score + 1);
-              
+                    setScore(score - 1);
+                    setIndex(index + 1);
                 }
-                setIndex(index + 1);
-        } 
+             
+        
         
     }
 

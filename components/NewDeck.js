@@ -22,7 +22,7 @@ function NewDeck(props) {
             // saveDeckTitle(input)
             addDeck(input)
         }
-        console.log("I will be here")
+        setInput("")
         navigation.navigate('Decks', { deckId: input });
     }
 
