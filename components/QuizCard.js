@@ -17,10 +17,11 @@ function QuizCard(props) {
     const [total, setTotal] = useState(1)
     const [done, setDone] = useState(false)
     const handleFlip = () => {
-        console.log("flip")
         setAnswer(!is_answer)
     }
 
+    const questionL = deck.length;
+    console.log("length", questionL)
 
     useEffect(() => {
         if (total <= 1) {
@@ -29,34 +30,38 @@ function QuizCard(props) {
     
     }, [])
 
+    
 
     const handleCorrect = () => {
-        if (index == deck.length - 1) {
-            setTotal(Math.floor(score / deck.length * 100) + "%")
+        let totalQ = deck.length - 1;
+        let aggre = score + 1;
+        if (index === totalQ) {
+            setTotal(Math.ceil((aggre / questionL ) * 100) + "%")
             setDone(true)
-         
+          
             alert(" No more quiz to display");
           
-        }else {
-          
-                setScore(score + 1)   
-                        
-              setIndex(index + 1); 
+        }else { 
+            setIndex(index + 1);
+            setAnswer(false)
+            setScore(score + 1)
             }      
     }
 
-    console.log('score', total)
+    console.log('score', score)
 
     const handleIncorect = () => {
-        if (index === deck.length-1) {
-            setTotal(Math.floor(score / deck.length * 100) + "%")
-            clearLocalNotification().then(setLocalNotification)
+     
+        let totalQ = deck.length-1;
+        if (index === totalQ) {
+            setTotal(Math.floor((score/questionL) * 100) + "%")
             setDone(true)
+          
                 alert(" No more quiz to display")
               
             } else {      
-                    setScore(score - 1);
-                    setIndex(index + 1);
+            setIndex(index + 1);
+            setAnswer(false)
                 }
              
         
@@ -76,7 +81,7 @@ function QuizCard(props) {
     
                 <Text style={styles.text}> {`${index + 1}/${deck.length}`}</Text>
                 <View style={styles.question}>
-                    <Text style={styles.text}>{!is_answer && index < deck.length - 1 ? deck[index].question : deck[index].answer} </Text>
+                    <Text style={styles.text}>{!is_answer ? deck[index].question : deck[index].answer} </Text>
                     <TouchableOpacity onPress={() => handleFlip()}>
                         <Text style={{ color: red, fontSize: 25 }} >{!is_answer ? 'Answer' : 'Question'} </Text>
                     </TouchableOpacity>
